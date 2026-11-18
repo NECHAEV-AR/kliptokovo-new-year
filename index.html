@@ -1,728 +1,829 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ледяное проклятие Клиптоково</title>
-    <meta name="description" content="Новогоднее приключение в деревне Клиптоково: четыре этапа испытаний, амулеты и жетоны.">
-    <style>
-        :root {
-            --bg: #07182b;
-            --panel: #102a44;
-            --panel-light: #193b5b;
-            --blue: #a9dcff;
-            --text: #eaf6ff;
-            --muted: #a9c4da;
-            --border: #426786;
-            --gold: #e8d39a;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 85px;
-        }
-
-        body {
-            font-family: Georgia, serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-        }
-
-        /* ОБЛОЖКА */
-
-        header {
-            min-height: 470px;
-            padding: 75px 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background:
-                linear-gradient(rgba(4, 17, 34, .45), rgba(4, 17, 34, .9)),
-                url('https://images.unsplash.com/photo-1517299321609-52687d1bc55a?auto=format&fit=crop&w=1800&q=85') center/cover;
-        }
-
-        .header-label {
-            color: var(--blue);
-            letter-spacing: 4px;
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            max-width: 950px;
-            font-size: clamp(38px, 7vw, 72px);
-            line-height: 1.15;
-            color: white;
-            text-shadow: 0 0 30px #8bcfff;
-        }
-
-        header p {
-            color: #d3eaff;
-            font-size: 17px;
-            margin-top: 22px;
-        }
-
-        .header-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 28px;
-            border: 1px solid #b8e4ff;
-            border-radius: 30px;
-            color: white;
-            text-decoration: none;
-            background: rgba(36, 82, 117, .6);
-            transition: .3s;
-        }
-
-        .header-button:hover {
-            background: #315e82;
-        }
-
-        /* НАВИГАЦИЯ */
-
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 7px;
-            padding: 13px;
-            background: rgba(9, 29, 49, .97);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(12px);
-        }
-
-        nav a {
-            color: var(--text);
-            text-decoration: none;
-            padding: 8px 13px;
-            font-size: 14px;
-            border-radius: 20px;
-            transition: .3s;
-        }
-
-        nav a:hover {
-            background: var(--panel-light);
-            color: var(--blue);
-        }
-
-        /* ОСНОВНОЙ БЛОК */
-
-        main {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px 70px;
-        }
-
-        section {
-            margin-bottom: 28px;
-            padding: 30px;
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
-        }
-
-        .section-label {
-            color: var(--blue);
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 7px;
-        }
-
-        h2 {
-            color: var(--blue);
-            font-size: 29px;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-
-        h3 {
-            color: #d4edff;
-            font-size: 20px;
-            margin-bottom: 12px;
-        }
-
-        p {
-            margin-bottom: 13px;
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 22px 0;
-        }
-
-        /* ИНФОРМАЦИЯ */
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 14px;
-            margin-top: 25px;
-        }
-
-        .info-card {
-            padding: 20px;
-            background: var(--panel-light);
-            border: 1px solid var(--border);
-            border-radius: 13px;
-        }
-
-        .info-card span {
-            display: block;
-            font-size: 27px;
-            margin-bottom: 8px;
-        }
-
-        .info-card h3 {
-            font-size: 17px;
-            margin-bottom: 5px;
-        }
-
-        .info-card p {
-            color: var(--muted);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        /* ЭТАПЫ */
-
-        .stage-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 22px;
-        }
-
-        .stage-card {
-            display: block;
-            padding: 22px;
-            background: var(--panel-light);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            text-decoration: none;
-            color: var(--text);
-            transition: .3s;
-        }
-
-        .stage-card:hover {
-            border-color: var(--blue);
-            transform: translateY(-3px);
-        }
-
-        .stage-number {
-            font-size: 30px;
-            color: var(--blue);
-            font-weight: bold;
-        }
-
-        .stage-card h3 {
-            margin: 7px 0;
-        }
-
-        .stage-card p {
-            font-size: 13px;
-            color: var(--muted);
-            margin: 0;
-        }
-
-        /* ЗАДАНИЯ */
-
-        .task {
-            padding: 20px;
-            background: #0b2138;
-            border: 1px solid var(--border);
-            border-left: 4px solid #91c9f0;
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-
-        .task-number {
-            color: var(--blue);
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
-
-        .task h3 {
-            margin: 7px 0;
-        }
-
-        .task p {
-            color: var(--muted);
-        }
-
-        .task-info {
-            font-size: 13px;
-            color: var(--blue);
-            margin-top: 10px;
-        }
-
-        /* АМУЛЕТЫ */
-
-        .amulet-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-            gap: 13px;
-            margin-top: 22px;
-        }
-
-        .amulet {
-            text-align: center;
-            padding: 22px 12px;
-            background: var(--panel-light);
-            border: 1px solid var(--border);
-            border-radius: 13px;
-        }
-
-        .amulet-icon {
-            font-size: 35px;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .amulet strong {
-            color: #d9efff;
-            display: block;
-        }
-
-        .amulet small {
-            color: var(--muted);
-        }
-
-        /* ТАБЛИЦЫ */
-
-        .table-wrap {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 480px;
-            text-align: left;
-        }
-
-        th {
-            background: #244968;
-            color: #d8efff;
-            padding: 15px;
-            font-size: 14px;
-        }
-
-        td {
-            padding: 14px 15px;
-            border-top: 1px solid var(--border);
-            color: var(--text);
-            font-size: 14px;
-        }
-
-        tr:nth-child(even) {
-            background: rgba(36, 73, 104, .3);
-        }
-
-        tr:hover td {
-            background: rgba(120, 180, 220, .07);
-        }
-
-        /* ПУСТЫЕ МЕСТА */
-
-        .placeholder {
-            padding: 17px;
-            background: rgba(169, 220, 255, .07);
-            border: 1px dashed #547b9b;
-            border-radius: 10px;
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        /* ПОДВАЛ */
-
-        footer {
-            padding: 35px 20px;
-            text-align: center;
-            background: #041222;
-            border-top: 1px solid var(--border);
-            color: var(--muted);
-        }
-
-        footer strong {
-            color: var(--blue);
-        }
-
-        /* ТЕЛЕФОНЫ */
-
-        @media (max-width: 650px) {
-            header {
-                min-height: 390px;
-            }
-
-            nav {
-                gap: 3px;
-                padding: 9px 5px;
-            }
-
-            nav a {
-                font-size: 12px;
-                padding: 7px 9px;
-            }
-
-            main {
-                padding: 25px 12px 45px;
-            }
-
-            section {
-                padding: 21px 16px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            .stage-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ледяное проклятие Клиптоково</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #071525;
+  --panel: #10253b;
+  --panel2: #152e47;
+  --blue: #9bdcf4;
+  --light: #e7f7ff;
+  --gold: #e9c985;
+  --muted: #a9c1d3;
+  --line: rgba(174,220,245,.18);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--light);
+  background:
+    radial-gradient(ellipse at top, #183b59 0%, transparent 55%),
+    linear-gradient(180deg, #071525, #0b1b2e 60%, #071525);
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.7;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { color: white; }
+
+.hero {
+  min-height: 510px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 70px 20px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(4,17,31,.48), rgba(4,17,31,.92)),
+    radial-gradient(ellipse at 50% 25%, #4c86a9 0%, #193b59 38%, #071525 78%);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+  content: "❄";
+  position: absolute;
+  font-size: 300px;
+  color: rgba(225,247,255,.045);
+  top: -80px;
+  left: -50px;
+}
+
+.hero::after {
+  content: "✧";
+  position: absolute;
+  font-size: 260px;
+  color: rgba(233,201,133,.08);
+  bottom: -100px;
+  right: -15px;
+}
+
+.hero-content { max-width: 850px; position: relative; z-index: 1; }
+
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 8vw, 76px);
+  line-height: 1.05;
+  margin: 22px 0;
+  color: #f2fbff;
+  text-shadow: 0 5px 30px rgba(155,220,244,.25);
+}
+
+.hero p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #d0e5f1;
+  font-size: 16px;
+}
+
+.hero-date {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 9px 22px;
+  border: 1px solid rgba(233,201,133,.5);
+  border-radius: 30px;
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(6,19,33,.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 15px;
+}
+
+.nav-inner {
+  max-width: 1150px;
+  margin: auto;
+  display: flex;
+  gap: 9px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #c6ddeb;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 20px;
+  transition: .2s;
+}
+
+nav a:hover {
+  background: #1b3b57;
+  color: white;
+}
+
+main {
+  max-width: 1050px;
+  margin: auto;
+  padding: 35px 20px 80px;
+}
+
+section { margin: 65px 0; scroll-margin-top: 90px; }
+
+.section-label {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 46px);
+  margin: 5px 0 20px;
+  line-height: 1.15;
+}
+
+h3 { color: var(--blue); margin-top: 0; }
+
+.intro-card, .rule-card, .stage-card, .info-card {
+  background: linear-gradient(145deg, rgba(21,46,71,.96), rgba(12,31,50,.96));
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 12px 35px rgba(0,0,0,.13);
+}
+
+.intro-card p:last-child { margin-bottom: 0; }
+
+.highlight {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.stage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.stage-link {
+  display: block;
+  padding: 23px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #173650, #10253b);
+  border: 1px solid var(--line);
+  transition: .2s;
+}
+
+.stage-link:hover {
+  transform: translateY(-3px);
+  border-color: rgba(155,220,244,.55);
+}
+
+.stage-number {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.stage-link h3 { margin: 7px 0; font-size: 19px; }
+.stage-link p { margin: 0; font-size: 13px; color: var(--muted); }
+
+.stage-card { margin: 25px 0; }
+
+.stage-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 17px;
+  margin-bottom: 20px;
+}
+
+.stage-heading h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  margin: 4px 0;
+  color: white;
+}
+
+.date {
+  color: var(--gold);
+  font-size: 12px;
+  white-space: nowrap;
+  border: 1px solid rgba(233,201,133,.3);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.task {
+  background: rgba(4,17,30,.35);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.task summary {
+  cursor: pointer;
+  padding: 15px 18px;
+  color: #e6f6ff;
+  font-weight: 700;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.task summary::-webkit-details-marker { display: none; }
+
+.task summary::after {
+  content: "+";
+  color: var(--gold);
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.task[open] summary::after { content: "−"; }
+
+.task-content {
+  padding: 0 18px 18px;
+  color: #c6d9e6;
+  font-size: 14px;
+}
+
+.task-content p { margin: 9px 0; }
+
+.reward {
+  margin-top: 14px;
+  padding: 12px 15px;
+  border-left: 3px solid var(--gold);
+  background: rgba(233,201,133,.07);
+  border-radius: 0 9px 9px 0;
+}
+
+.reward strong { color: var(--gold); }
+
+.note {
+  padding: 15px 18px;
+  background: rgba(155,220,244,.07);
+  border: 1px solid rgba(155,220,244,.2);
+  border-radius: 12px;
+  color: #cde7f4;
+  font-size: 13px;
+  margin: 18px 0;
+}
+
+.rules-list { padding-left: 20px; }
+.rules-list li { margin: 12px 0; color: #d0e1ec; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+  font-size: 13px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 13px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th {
+  color: var(--gold);
+  background: #17344e;
+  font-weight: 700;
+}
+
+td { color: #d1e2ed; background: rgba(14,34,53,.75); }
+tr:last-child td { border-bottom: none; }
+
+.amulet {
+  color: var(--blue);
+  font-weight: 800;
+}
+
+.token-icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e9d6a0, #9e7c42);
+  color: #263044;
+  font-weight: 900;
+  margin-right: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+footer strong { color: var(--gold); }
+
+@media (max-width: 650px) {
+  .stage-grid { grid-template-columns: 1fr; }
+  main { padding-left: 14px; padding-right: 14px; }
+  .intro-card, .rule-card, .stage-card, .info-card { padding: 18px; }
+  nav { padding: 8px; }
+  nav a { font-size: 11px; padding: 6px 9px; }
+  .hero { min-height: 430px; }
+}
+</style>
 </head>
 
 <body>
 
-<!-- ОБЛОЖКА -->
-
-<header>
-    <div class="header-label">Новогоднее приключение в Клиптоково</div>
-
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Зимняя сказка · Клиптоково</div>
     <h1>Ледяное проклятие Клиптоково</h1>
-
-    <p>История, в которой именно ты можешь вернуть новогоднее чудо.</p>
-
-    <a href="#description" class="header-button">
-        Начать приключение ❄
-    </a>
+    <p>История о дружбе, смелости и новогоднем чуде. Отправляйся навстречу приключениям, собери магические амулеты и помоги вернуть праздник в замёрзшую деревню!</p>
+    <div class="hero-date">01 ДЕКАБРЯ — 25 ДЕКАБРЯ</div>
+  </div>
 </header>
 
-<!-- МЕНЮ -->
-
 <nav>
-    <a href="#description">Описание</a>
+  <div class="nav-inner">
+    <a href="#about">О проекте</a>
     <a href="#rules">Правила</a>
     <a href="#stages">Этапы</a>
     <a href="#amulets">Амулеты</a>
     <a href="#tokens">Жетоны</a>
+  </div>
 </nav>
 
 <main>
 
-<!-- 01. ОПИСАНИЕ -->
+<section id="about">
+  <div class="section-label">01 · Предыстория</div>
+  <h2>О чём эта история?</h2>
 
-<section id="description">
+  <div class="intro-card">
+    <p>В деревне Клиптоково вовсю готовились к Новому году. Жители украшали дома, развешивали гирлянды, лепили снеговиков и с нетерпением ждали наступления праздника.</p>
 
-    <div class="section-label">Раздел 01</div>
-    <h2>❄ Описание активности</h2>
+    <p>Но однажды над деревней сгустились тучи, а привычный мороз сменился ледяным холодом. Улицы покрылись снегом, огни погасли, а новогоднее волшебство бесследно исчезло.</p>
 
-    <p>
-        В деревне Клиптоково вовсю готовились к Новому году:
-        жители украшали улицы, развешивали гирлянды и
-        создавали праздничную атмосферу.
-    </p>
+    <p>Причиной всему стала Снежная Королева. Она утратила веру в новогоднее чудо, а её печаль и отчаяние превратились в настоящее ледяное проклятие, которое сковало всё Клиптоково.</p>
 
-    <p>
-        Но однажды над деревней навис ледяной холод.
-        Снежная Королева остановила волшебные часы,
-        заморозила праздничные улицы и похитила Новый год,
-        заточив его в своём ледяном замке.
-    </p>
+    <p>Теперь именно вам предстоит отправиться в путешествие от заснеженной деревни до самого сердца ледяного замка. На пути вас ждут непростые задания, пять магических амулетов, ледяные жетоны и испытания, которые помогут вернуть Королеве веру в чудо.</p>
 
-    <p>
-        Теперь участникам предстоит отправиться в опасное
-        путешествие, пройти четыре этапа испытаний,
-        собрать необходимые амулеты и жетоны Клиптоково,
-        чтобы вернуть деревне долгожданный праздник.
-    </p>
+    <p class="highlight">Сможете ли вы растопить лёд и вернуть Новый год в Клиптоково?</p>
+  </div>
 
-    <div class="info-grid">
+  <div class="stage-grid" id="stages">
+    <a class="stage-link" href="#stage1">
+      <div class="stage-number">I этап · 02.12–06.12</div>
+      <h3>Сбор амулетов</h3>
+      <p>Пять новогодних заданий и пять магических амулетов.</p>
+    </a>
 
-        <div class="info-card">
-            <span>🏰</span>
-            <h3>Четыре этапа</h3>
-            <p>Большое новогоднее приключение.</p>
-        </div>
+    <a class="stage-link" href="#stage2">
+      <div class="stage-number">II этап · 07.12–13.12</div>
+      <h3>Охота за ледяными жетонами</h3>
+      <p>Поиск спрятанных заданий и сбор ресурсов.</p>
+    </a>
 
-        <div class="info-card">
-            <span>💎</span>
-            <h3>Амулеты</h3>
-            <p>Пять магических амулетов ждут вас.</p>
-        </div>
+    <a class="stage-link" href="#stage3">
+      <div class="stage-number">III этап · 14.12–20.12</div>
+      <h3>Пять испытаний ледяного замка</h3>
+      <p>Пять комнат, пять испытаний и новые элементы костюма.</p>
+    </a>
 
-        <div class="info-card">
-            <span>🎟️</span>
-            <h3>Жетоны</h3>
-            <p>Особая валюта приключения.</p>
-        </div>
-
-        <div class="info-card">
-            <span>✨</span>
-            <h3>Новое чудо</h3>
-            <p>Вернуть Новый год деревне.</p>
-        </div>
-
-    </div>
-
+    <a class="stage-link" href="#stage4">
+      <div class="stage-number">IV этап · 21.12–25.12</div>
+      <h3>Новогодний бал чудес</h3>
+      <p>Творческие идеи участников и праздничные задания.</p>
+    </a>
+  </div>
 </section>
-
-<!-- 02. ПРАВИЛА -->
 
 <section id="rules">
+  <div class="section-label">02 · Важно знать</div>
+  <h2>Общие правила активности</h2>
 
-    <div class="section-label">Раздел 02</div>
-    <h2>📜 Правила</h2>
+  <div class="rule-card">
+    <p>Добро пожаловать в Клиптоково! Впереди вас ждут четыре последовательных этапа, на каждом из которых понадобятся смекалка, внимательность, удача и творческий подход.</p>
 
-    <p>
-        Приключение проходит в четыре этапа. На каждом этапе
-        участников ждут задания, за выполнение которых выдаются
-        амулеты и жетоны Клиптоково.
-    </p>
+    <ol class="rules-list">
+      <li>Участие в активности индивидуальное. Каждый игрок самостоятельно выполняет задания и получает предусмотренные награды.</li>
+      <li>Каждый участник должен быть подписан на группу проекта и сохранять подписку до окончания активности.</li>
+      <li>Все задания необходимо выполнять в установленные сроки. Работы, отправленные после дедлайна, не принимаются, если организаторы не объявили об исключении.</li>
+      <li>Этапы активности связаны между собой. Для прохождения некоторых испытаний III этапа понадобятся амулеты, полученные ранее. Жетоны Клиптоково позволят упростить отдельные условия.</li>
+      <li>Задания выполняются самостоятельно, если в условиях конкретного задания не предусмотрено участие других игроков.</li>
+      <li>Запрещается использовать чужие работы, поддельные подтверждения и один и тот же результат для выполнения нескольких заданий.</li>
+      <li>При нарушении правил организаторы вправе отклонить задание, отказать в выдаче награды или внести участника в чёрный список проекта.</li>
+      <li>Формат подтверждения указывается в задании. Это может быть голосовое сообщение, скриншот, видео, фотография, текст или ссылка.</li>
+      <li>Организаторы вправе запросить дополнительные подтверждения выполнения задания.</li>
+      <li>Награды начисляются в течение 7–14 рабочих дней после завершения активности. Выходные и праздничные дни не учитываются.</li>
+      <li>При выполнении игровых заданий подтверждение должно позволять однозначно определить игрового персонажа и факт выполнения условия.</li>
+      <li>Во всех игровых заданиях обязательно должны присутствовать игровые паспорта участников, хештег <strong>#ЛПК</strong> и ID. Хештег обязателен для всех типов заданий.</li>
+      <li>Одно задание нельзя выполнить повторно на другой социальной сети.</li>
+      <li>Если продолжительность видео превышает 5 минут, необходимо указать таймкоды нужных моментов. Исключение составляют задания, в которых таймкоды обязательны независимо от длительности видео.</li>
+    </ol>
 
-    <div class="placeholder">
-        Правила уточняются. Здесь появится подробная информация
-        о порядке прохождения, командах и сроках.
+    <h3>Как отправлять выполненные задания?</h3>
+    <p>Все подтверждения необходимо отправлять в личные сообщения сообщества проекта:</p>
+    <p><a href="https://vk.ru/avatariagame_kt" target="_blank">vk.ru/avatariagame_kt</a></p>
+
+    <p><strong>Шаблон сообщения:</strong></p>
+    <div class="note">
+      Социальная сеть:<br>
+      ID в TGC:<br>
+      Пол персонажа:<br>
+      Номер этапа:<br>
+      Номер задания (I и IV этапы) / формулировка задания (II этап) / название испытания (III этап):<br>
+      Подтверждение:
     </div>
 
+    <p>Для подачи идей на IV этап необходимо заполнить специальную форму до 18.12 включительно:</p>
+    <p><a href="https://forms.gle/KR5uz2NBRfGwGTHs7" target="_blank">Перейти к форме</a></p>
+  </div>
 </section>
 
-<!-- 03. ЭТАПЫ -->
-
-<section id="stages">
-
-    <div class="section-label">Раздел 03</div>
-    <h2>🗺️ Этапы приключения</h2>
-
-    <p>
-        Всего участников ждут четыре этапа испытаний на пути
-        к ледяному замку Снежной Королевы.
-    </p>
-
-    <div class="stage-grid">
-
-        <a href="#stages" class="stage-card">
-            <div class="stage-number">01</div>
-            <h3>Начало пути</h3>
-            <p>Первые шаги в замёрзшем Клиптоково.</p>
-        </a>
-
-        <a href="#stages" class="stage-card">
-            <div class="stage-number">02</div>
-            <h3>Забытая дорога</h3>
-            <p>Испытания на пути к ледяному замку.</p>
-        </a>
-
-        <a href="#stages" class="stage-card">
-            <div class="stage-number">03</div>
-            <h3>Ледяной замок</h3>
-            <p>Стены, за которыми спрятан Новый год.</p>
-        </a>
-
-        <a href="#stages" class="stage-card">
-            <div class="stage-number">04</div>
-            <h3>Возвращение чуда</h3>
-            <p>Финальное испытание и спасение праздника.</p>
-        </a>
-
+<section id="stage1">
+  <div class="section-label">03 · Первый этап</div>
+  <div class="stage-card">
+    <div class="stage-heading">
+      <div>
+        <div class="stage-number">02.12 — 06.12</div>
+        <h3>I. Сбор амулетов</h3>
+      </div>
+      <span class="date">5 заданий</span>
     </div>
 
-    <div class="divider"></div>
+    <p>Чтобы приблизиться к замку Снежной Королевы, вам предстоит собрать пять магических амулетов. Каждый из них хранит частичку новогоднего волшебства и символизирует важное качество, способное помочь растопить ледяное проклятие.</p>
 
-    <h3>Задания первого этапа</h3>
-
-    <div class="task">
-        <div class="task-number">Задание 1</div>
-        <h3>Амулет Дружбы</h3>
-        <p>Описание задания уточняется.</p>
-        <div class="task-info">Награда: Амулет Дружбы</div>
+    <div class="note">
+      Каждый день будет появляться одно новое сложное новогоднее задание. Выполнять их можно в любое время в течение этапа: ежедневно или все сразу в последний день. За каждое выполненное задание участник получает небольшую награду и один амулет.
     </div>
 
-    <div class="task">
-        <div class="task-number">Задание 2</div>
-        <h3>Амулет Любви</h3>
-        <p>Описание задания уточняется.</p>
-        <div class="task-info">Награда: Амулет Любви</div>
-    </div>
+    <details class="task">
+      <summary>1. Новогодний экспресс 🚂</summary>
+      <div class="task-content">
+        <p>Новогодний экспресс уже отправился в путь! Но прежде чем присоединиться к путешествию, необходимо подготовить праздничные подарки.</p>
+        <p>Соберите в инвентаре не менее 12 различных видов подарков и откройте их. Запишите видео, на котором будет видно процесс открытия и получившуюся коллекцию.</p>
+        <div class="reward"><strong>Награда:</strong> Амулет Радости; глина ×12; перья ×12; щедрость ×12; точильный камень ×12; стекло ×12.</div>
+      </div>
+    </details>
 
-    <div class="task">
-        <div class="task-number">Задание 3</div>
-        <h3>Амулет Света</h3>
-        <p>Описание задания уточняется.</p>
-        <div class="task-info">Награда: Амулет Света</div>
-    </div>
+    <details class="task">
+      <summary>2. Новогоднее обращение 🎤</summary>
+      <div class="task-content">
+        <p>Котик Антон совсем потерял праздничное настроение и засиделся в гостях у Моти Клаустона. Пора напомнить ему, что Новый год уже близко!</p>
+        <p>Запишите в реальной жизни новогоднее поздравление и опубликуйте его в VK Клипах на своей странице.</p>
+        <div class="reward"><strong>Награда:</strong> Амулет Единства; Клипбокс; 111 золотых монет.</div>
+      </div>
+    </details>
 
+    <details class="task">
+      <summary>3. Волшебство за окном ❄️</summary>
+      <div class="task-content">
+        <p>Праздник начинается с мелочей. Украсьте окно своей квартиры или дома праздничными снежинками, чтобы даже за его пределами чувствовалось приближение Нового года.</p>
+        <div class="reward"><strong>Награда:</strong> Амулет Любви; новогодние подарки 2017 года; Клипбокс за лучшие работы.</div>
+      </div>
+    </details>
+
+    <details class="task">
+      <summary>4. Новогодние поздравления 🎅🏻</summary>
+      <div class="task-content">
+        <p>Пора поделиться праздничным настроением с окружающими! Поздравьте 7 игроков, используя подарок на день рождения или подарок в локации свадьбы.</p>
+        <div class="reward"><strong>Награда:</strong> Амулет Дружбы; любой предмет мебели от проекта, кроме Мартина, камина и дерева Luvandi.</div>
+      </div>
+    </details>
+
+    <details class="task">
+      <summary>5. Новогоднее чудо 🍀</summary>
+      <div class="task-content">
+        <p>Иногда настоящее чудо скрывается там, где его совсем не ждёшь. Испытайте удачу и прокрутите Колесо фортуны, чтобы получить три определённых предмета:</p>
+        <ul>
+          <li>Игральный кубик;</li>
+          <li>Золотой клевер;</li>
+          <li>Игральная карта.</li>
+        </ul>
+        <div class="reward"><strong>Награда:</strong> Амулет Света; кисти для макияжа ×100; фотоплёнки ×100.</div>
+      </div>
+    </details>
+  </div>
 </section>
 
-<!-- 04. АМУЛЕТЫ -->
+<section id="stage2">
+  <div class="section-label">04 · Второй этап</div>
+  <div class="stage-card">
+    <div class="stage-heading">
+      <div>
+        <div class="stage-number">07.12 — 13.12</div>
+        <h3>II. Охота за ледяными жетонами</h3>
+      </div>
+      <span class="date">Скрытые задания</span>
+    </div>
+
+    <p>Амулеты собраны, но путь к замку всё ещё закрыт. Чтобы подготовиться к предстоящим испытаниям, вам предстоит отправиться на охоту за ледяными жетонами.</p>
+
+    <p>Задания будут спрятаны в сообществе проекта и под официальными игровыми клипами. Будьте внимательны: иногда нужная подсказка находится прямо перед глазами!</p>
+
+    <div class="note">
+      <strong>Награда за каждое выполненное задание:</strong><br>
+      10 золотых монет + 10 ТокКоинов + 1 Жетон Клиптоково.
+    </div>
+
+    <p>Всего подготовлено 27 заданий. Их количество заранее не объявляется. Все задания доступны для выполнения в течение II этапа.</p>
+
+    <div id="task-list-2"></div>
+  </div>
+</section>
+
+<section id="stage3">
+  <div class="section-label">05 · Третий этап</div>
+  <div class="stage-card">
+    <div class="stage-heading">
+      <div>
+        <div class="stage-number">14.12 — 20.12</div>
+        <h3>III. Пять испытаний ледяного замка</h3>
+      </div>
+      <span class="date">5 комнат</span>
+    </div>
+
+    <p>Вы добрались до ледяного замка! Но Снежная Королева не собирается так просто впускать незваных гостей. На пути к тронному залу вас ждут пять испытаний, каждое из которых потребует определённого амулета.</p>
+
+    <p>За прохождение каждой комнаты участник получает новый элемент костюма. А собранные на предыдущем этапе жетоны помогут упростить некоторые условия.</p>
+
+    <div class="note">
+      Для упрощения одного испытания необходимо потратить <strong>7 Жетонов Клиптоково</strong>. Использование жетонов заменяет или изменяет условие, указанное в соответствующей комнате.
+    </div>
+
+    <details class="task">
+      <summary>1. Снежные ворота замка</summary>
+      <div class="task-content">
+        <p><strong>Необходимый амулет:</strong> Света.</p>
+        <p>Подойдя к замку, вы увидели огромные снежные ворота. Чтобы открыть их, необходимо потратить 1000 золотых монет, при этом обязательно купив 10 лавочек «Сквер».</p>
+        <p><strong>Упрощение за 7 жетонов:</strong> вместо основного условия необходимо потратить 3000 рубинов.</p>
+        <div class="reward"><strong>Награда:</strong> новый элемент костюма; жемчужные ожерелья ×5; ракушечные ожерелья ×5.</div>
+      </div>
+    </details>
+
+    <details class="task">
+      <summary>2. Ледяные коридоры замка</summary>
+      <div class="task-content">
+        <p><strong>Необходимый амулет:</strong> Радости.</p>
+        <p>Коридоры замка полны ледяных ловушек. Чтобы пройти дальше, оставьте комментарий под любым клипом и наберите не менее 100 лайков.</p>
+        <p><strong>Упрощение за 7 жетонов:</strong> необходимо набрать не менее 50 лайков.</p>
+        <div class="reward"><strong>Награда:</strong> новый элемент костюма; 1111 единиц энергии.</div>
+      </div>
+    </details>
+
+    <details class="task">
+      <summary>3. Зеркальный зал отражений</summary>
+      <div class="task-content">
+        <p><strong>Необходимый амулет:</strong> Дружбы.</p>
+        <p>В зеркальном зале отражается не только ваше изображение, но и самые сокровенные желания. Создайте клип о новогоднем чуде в Аватарии, пригласите друзей и придумайте праздничную историю.</p>
+        <p>Задание необходимо выполнить в течение 24 часов.</p>
+        <p><strong>Упрощение за 7 жетонов:</strong> ограничение по времени снимается.</p>
+        <div class="reward"><strong>Награда:</strong> новый элемент костюма; старый набор подарков с Горнолыжного курорта. Лучшие клипы жителей деревни получат Клипбокс.</div>
+      </div>
+    </details>
+
+    <details class="task">
+      <summary>4. Ледяная сокровищница</summary>
+      <div class="task-content">
+        <p><strong>Необходимый амулет:</strong> Любви.</p>
+        <p>В сокровищнице хранятся самые ценные вещи Клиптоково. Ваша задача — создать объёмную поделку, изображающую драгоценный кубок КлипТока.</p>
+        <p><strong>Упрощение за 7 жетонов:</strong> вместо объёмной поделки можно предоставить рисунок, выполненный в стиле проекта.</p>
+        <div class="reward"><strong>Награда:</strong> новый элемент костюма; снежный шар. Лучшие работы получат ава-паку «Снеговик».</div>
+      </div>
+    </details>
+
+    <details class="task">
+      <summary>5. Тронный зал Снежной Королевы</summary>
+      <div class="task-content">
+        <p><strong>Необходимый амулет:</strong> Единства.</p>
+        <p>Наконец вы добрались до тронного зала. Но прежде чем встретиться с Королевой, необходимо показать, насколько сильна ваша дружба и сплочённость.</p>
+        <p>Отправляйтесь в любую игровую локацию, пригласите 21 друга и вместе постройте фигуру в форме новогоднего леденца. Всего в построении должны участвовать 22 человека, включая вас.</p>
+        <p><strong>Упрощение за 7 жетонов:</strong> пригласите 10 друзей и постройте цифру 7. Всего в построении должны участвовать 11 человек, включая вас.</p>
+        <div class="reward"><strong>Награда:</strong> новый элемент костюма; Клипбокс.</div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="stage4">
+  <div class="section-label">06 · Четвёртый этап</div>
+  <div class="stage-card">
+    <div class="stage-heading">
+      <div>
+        <div class="stage-number">21.12 — 25.12</div>
+        <h3>IV. Новогодний бал чудес</h3>
+      </div>
+      <span class="date">Финальный этап</span>
+    </div>
+
+    <p>Вы прошли все испытания и добрались до самого сердца ледяного замка. Теперь настало время встретиться со Снежной Королевой и доказать ей, что новогоднее чудо всё ещё существует.</p>
+
+    <p>На этом этапе каждый участник сможет предложить собственную идею новогоднего задания. Организаторы выберут пять лучших вариантов, которые станут частью финального приключения.</p>
+
+    <div class="note">
+      <strong>Приём идей:</strong> до 18.12 включительно.<br>
+      <a href="https://forms.gle/KR5uz2NBRfGwGTHs7" target="_blank">Отправить идею через Google Форму</a>
+    </div>
+
+    <h3>Как будут распределяться награды?</h3>
+    <ul class="rules-list">
+      <li>Авторы пяти выбранных идей автоматически получают новый элемент костюма.</li>
+      <li>Все участники смогут выполнить пять выбранных заданий.</li>
+      <li>За каждое выполненное задание предусмотрен средний подарок с Горнолыжного курорта.</li>
+      <li>За выполнение всех пяти заданий участник дополнительно получает новый элемент костюма.</li>
+      <li>Авторы выбранных идей также могут выполнять задания и претендовать на дополнительную награду.</li>
+    </ul>
+
+    <div class="reward">
+      <strong>Главная цель:</strong> завершить путешествие, вернуть Снежной Королеве веру в новогоднее чудо и восстановить праздник в Клиптоково!
+    </div>
+  </div>
+</section>
 
 <section id="amulets">
+  <div class="section-label">07 · Коллекция</div>
+  <h2>Магические амулеты</h2>
+  <p>Пять амулетов — пять качеств, которые помогут справиться с ледяным проклятием. Каждый амулет можно получить за соответствующее задание I этапа.</p>
 
-    <div class="section-label">Раздел 04</div>
-    <h2>💎 Амулеты Клиптоково</h2>
-
-    <p>
-        В ходе приключения участникам предстоит собрать
-        пять магических амулетов. Каждый из них символизирует
-        важную часть новогоднего чуда.
-    </p>
-
-    <div class="amulet-grid">
-
-        <div class="amulet">
-            <span class="amulet-icon">💙</span>
-            <strong>Амулет Дружбы</strong>
-            <small>I этап</small>
-        </div>
-
-        <div class="amulet">
-            <span class="amulet-icon">💗</span>
-            <strong>Амулет Любви</strong>
-            <small>I этап</small>
-        </div>
-
-        <div class="amulet">
-            <span class="amulet-icon">✨</span>
-            <strong>Амулет Света</strong>
-            <small>I этап</small>
-        </div>
-
-        <div class="amulet">
-            <span class="amulet-icon">🤍</span>
-            <strong>Амулет Единства</strong>
-            <small>I этап</small>
-        </div>
-
-        <div class="amulet">
-            <span class="amulet-icon">🎄</span>
-            <strong>Амулет Радости</strong>
-            <small>I этап</small>
-        </div>
-
-    </div>
-
-    <div class="divider"></div>
-
-    <h3>Общая таблица амулетов</h3>
-
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Амулет</th>
-                    <th>Где получить</th>
-                    <th>Назначение</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>Амулет Дружбы</td>
-                    <td>I этап</td>
-                    <td>Уточняется</td>
-                </tr>
-
-                <tr>
-                    <td>Амулет Любви</td>
-                    <td>I этап</td>
-                    <td>Уточняется</td>
-                </tr>
-
-                <tr>
-                    <td>Амулет Света</td>
-                    <td>I этап</td>
-                    <td>Уточняется</td>
-                </tr>
-
-                <tr>
-                    <td>Амулет Единства</td>
-                    <td>I этап</td>
-                    <td>Уточняется</td>
-                </tr>
-
-                <tr>
-                    <td>Амулет Радости</td>
-                    <td>I этап</td>
-                    <td>Уточняется</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Амулет</th>
+          <th>Как получить</th>
+          <th>Где понадобится</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="amulet">Амулет Радости</td>
+          <td>Новогодний экспресс 🚂</td>
+          <td>Ледяные коридоры</td>
+        </tr>
+        <tr>
+          <td class="amulet">Амулет Единства</td>
+          <td>Новогоднее обращение 🎤</td>
+          <td>Тронный зал</td>
+        </tr>
+        <tr>
+          <td class="amulet">Амулет Любви</td>
+          <td>Волшебство за окном ❄️</td>
+          <td>Ледяная сокровищница</td>
+        </tr>
+        <tr>
+          <td class="amulet">Амулет Дружбы</td>
+          <td>Новогодние поздравления 🎅🏻</td>
+          <td>Зеркальный зал</td>
+        </tr>
+        <tr>
+          <td class="amulet">Амулет Света</td>
+          <td>Новогоднее чудо 🍀</td>
+          <td>Снежные ворота</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
-<!-- 05. ЖЕТОНЫ -->
-
 <section id="tokens">
+  <div class="section-label">08 · Игровая валюта</div>
+  <h2>Жетоны Клиптоково</h2>
 
-    <div class="section-label">Раздел 05</div>
-    <h2>🎟️ Жетоны Клиптоково</h2>
+  <div class="intro-card">
+    <p><span class="token-icon">✦</span><strong>Жетон Клиптоково</strong> — особая валюта активности, которая поможет участникам облегчить прохождение испытаний ледяного замка.</p>
+    <p>Получить жетоны можно за выполнение скрытых заданий II этапа. Использовать их можно для изменения условий отдельных испытаний III этапа.</p>
+  </div>
 
-    <p>
-        Жетоны Клиптоково — специальная валюта,
-        используемая в рамках новогодней активности.
-    </p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Действие</th>
+          <th>Количество жетонов</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Выполнение одного задания II этапа</td>
+          <td>+1 жетон</td>
+        </tr>
+        <tr>
+          <td>Упрощение одного испытания III этапа</td>
+          <td>−7 жетонов</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Название</th>
-                    <th>Где получить</th>
-                    <th>Назначение</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>🎟️ Жетоны Клиптоково</td>
-                    <td>Уточняется</td>
-                    <td>Уточняется</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+  <div class="note">
+    Жетоны не являются отдельными видами валюты: в активности используется только один тип — Жетоны Клиптоково. Для каждого упрощения испытания необходимо иметь 7 жетонов.
+  </div>
 </section>
 
 </main>
 
-<!-- ПОДВАЛ -->
-
 <footer>
-    <p><strong>Ледяное проклятие Клиптоково</strong></p>
-    <p>Новогоднее приключение ❄</p>
-    <p>Делаем сложное простым.</p>
+  <strong>Ледяное проклятие Клиптоково</strong>
+  <p>Пусть даже самая сильная стужа отступит перед настоящим новогодним чудом!</p>
+  <p>#ЛПК · #аватарияклипток</p>
 </footer>
+
+<script>
+const hiddenTasks = [
+  "Создайте праздничный игровой образ отважного героя, который отправляется к замку Снежной Королевы.",
+  "Самостоятельно выполните профессии садовника и дворника, а также профессию повара.",
+  "Купите каждый предмет в магазине «Подарки и приколы», не более одного экземпляра каждого.",
+  "Найдите особый летающий бонус в одной из мини-игр.",
+  "Найдите и откройте все семь игровых билетов.",
+  "Займите первое место в лиге активности. Дожидаться обновления лиги не требуется.",
+  "Прокачайте все характеристики питомца до максимума и отправьтесь с ним на игровую прогулку.",
+  "Найдите любого КлипТокера в игре и подарите ему золотую рыбку.",
+  "Купите комнату и украсьте её. Процесс необходимо записать на непрерывное видео.",
+  "Создайте вечеринку в категории «Вечеринки» с названием «Вечеринка с KlipTok» и соберите не менее двух гостей.",
+  "Наберите ровно 1212 очков активности в клубе. Запишите весь процесс.",
+  "Наденьте мерч проекта и прорекламируйте KlipTok по всему игровому миру.",
+  "Воспользуйтесь VIP-сноубордом и совершите 12 полных заездов в режиме «Скоростной спуск».",
+  "Угости любого игрока коктейлем «Комета» ровно 55 раз. Шифр Цезаря: Цёсфхл обдсёс лёуснг нснхзмозп «Нспзхг» усерс 55 угк.",
+  "Попросите друзей прислать вам 27 точильных камней. Использовать функцию «Отправить всем» запрещено.",
+  "Посетите 27 соседей и помогите им с уборкой.",
+  "Купите один понравившийся предмет одежды в любом магазине одежды.",
+  "Найдите все сердечки-плакаты в квартирах некоторых КлипТокеров.",
+  "Создайте изображение, на котором будет изображён бал Снежной Королевы и ваш игровой аватар.",
+  "Сыграйте 67 партий в «Голодных сурикатов».",
+  "В мастерской создайте каждый из представленных цветов.",
+  "Нарисуйте что-нибудь на новогоднюю тематику на интерактивной доске.",
+  "Выберите 12 игроков и подарите каждому новогоднее украшение.",
+  "Найдите пять представителей проекта и вручите каждому большой подарок на ваш выбор.",
+  "Совершите хотя бы одну покупку в «Магазинчике».",
+  "Сделайте фотографии с разными игроками, на каждой из которых будет представлен уникальный набор стикеров. Оформите галерею.",
+  "Создайте образ полностью из фиолетовых предметов и продемонстрируйте любовь к проекту."
+];
+
+const taskList = document.getElementById("task-list-2");
+
+hiddenTasks.forEach((task, index) => {
+  const details = document.createElement("details");
+  details.className = "task";
+
+  const summary = document.createElement("summary");
+  summary.textContent = "Задание " + (index + 1);
+
+  const content = document.createElement("div");
+  content.className = "task-content";
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = task;
+
+  const reward = document.createElement("div");
+  reward.className = "reward";
+  reward.innerHTML = "<strong>Награда:</strong> 10 золотых монет, 10 ТокКоинов и 1 Жетон Клиптоково.";
+
+  content.appendChild(paragraph);
+  content.appendChild(reward);
+  details.appendChild(summary);
+  details.appendChild(content);
+  taskList.appendChild(details);
+});
+</script>
 
 </body>
 </html>
